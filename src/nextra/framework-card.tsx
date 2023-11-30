@@ -17,18 +17,18 @@ import Link from 'next/link'
 const logoMap = {
   nextjs: {
     name: 'Router',
-    href: '/docs/installation/nextjs',
+    href: '/docs/guide/router/overview',
     logo: NextjsLogo
   },
   gatsby: {
     name: 'Switch',
     logo: GatsbyLogo,
-    href: '/docs/installation/gatsby'
+    href: '/docs/guide/switch/overview'
   },
   solid: {
     name: 'Linux',
     logo: SolidjsLogo,
-    href: '/docs/installation/solidjs'
+    href: '/docs/guide/linux/overview'
   },
 }
 
