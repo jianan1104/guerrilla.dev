@@ -38,7 +38,7 @@ export const SectionHero = () => {
 
                 <panda.h1
                   color="text.headline"
-                  fontSize={{ base: '7rem', sm: '12rem', lg: '14.5rem' }}
+                  fontSize={{ base: '5.6rem', sm: '9.6rem', lg: '11rem' }}
                   fontWeight="bold"
                   letterSpacing="tighter"
                   lineHeight="1"
