@@ -75,7 +75,7 @@ export const SectionRecipes = () => {
             </Stack>
 
             <panda.div position={{ lg: 'absolute' }} bottom="40" left="0">
-              <LearnMore href="/docs/concepts/recipes" />
+              {/* <LearnMore href="/docs/concepts/recipes" /> */}
             </panda.div>
           </Stack>
 

@@ -132,7 +132,7 @@ export const SectionDesignTokens = () => {
             </Stack>
           </Box>
 
-          <LearnMore href="/docs/theming/tokens" />
+          {/* <LearnMore href="/docs/theming/tokens" /> */}
         </Stack>
 
         <Stack direction={{ base: 'column', lg: 'row' }} gap="10">

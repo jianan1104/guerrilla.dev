@@ -73,7 +73,7 @@ export const SectionModernCss = () => {
               </panda.h4>
             </Stack>
 
-            <LearnMore href="/docs/concepts/cascade-layers" />
+            {/* <LearnMore href="/docs/concepts/cascade-layers" /> */}
           </Stack>
 
           <panda.div flex="1" maxW={{ lg: '40rem' }} flexShrink="0">

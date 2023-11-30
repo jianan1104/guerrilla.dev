@@ -24,7 +24,6 @@ export const DesktopNavBar = () => {
 
       <HStack gap="4">
         <NavLink href="/docs">Docs</NavLink>
-        <NavLink href="/learn">Learn</NavLink>
         <NavLink href="https://gitlab.com/moxa/qa/product/router/guerrilla" isExternal>
           <HStack>
             <span>GitLab</span>
