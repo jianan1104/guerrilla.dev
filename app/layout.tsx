@@ -26,11 +26,11 @@ export default function RootLayout(props: Props) {
       suppressHydrationWarning
     >
       <head>
-        <script
+        {/* <script
           defer
           data-domain="panda-css.com"
           src="https://plausible.io/js/script.js"
-        />
+        /> */}
       </head>
       <body className={css({ overflowX: 'hidden', overflowY: 'auto' })}>
         <Providers>

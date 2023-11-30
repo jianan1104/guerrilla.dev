@@ -41,7 +41,7 @@ const config: DocsThemeConfig = {
       openGraph: { url, images: [{ url: `${url}${images}` }] }
     }
   },
-  docsRepositoryBase: 'https://github.com/chakra-ui/panda/tree/main/website',
+  docsRepositoryBase: 'https://github.com/jianan1104/guerrilla.dev',
   sidebar: {
     toggleButton: true
   },
@@ -64,7 +64,7 @@ const config: DocsThemeConfig = {
           className={css({ color: 'current', textDecoration: 'none' })}
           href="https://www.adebayosegun.com/"
         >
-          Proudly made by Moxa Inc.
+          Proudly made by cat.
         </a>
       </div>
     )
@@ -91,11 +91,11 @@ const config: DocsThemeConfig = {
           name="og:description"
           content={meta['description'] || seoConfig.description}
         />
-        <meta name="og:image" content={seoConfig.openGraph.images} />
+        {/* <meta name="og:image" content={seoConfig.openGraph.images} /> */}
         <meta name="og:url" content={seoConfig.openGraph.url} />
-        <meta name="twitter:card" content="summary_large_image" />
+        {/* <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content={seoConfig.twitter.site} />
-        <meta name="twitter:creator" content={seoConfig.twitter.creator} />
+        <meta name="twitter:creator" content={seoConfig.twitter.creator} /> */}
         <meta name="apple-mobile-web-app-title" content="Guerrilla" />
       </>
     )

@@ -22,10 +22,10 @@ const seoConfig = defineMetadata({
     { rel: 'mask-icon', url: '/favicon.ico' },
     { rel: 'image/x-icon', url: '/favicon.ico' }
   ],
-  twitter: {
-    site: '@panda__css',
-    creator: '@thesegunadebayo'
-  }
+  // twitter: {
+  //   site: '@panda__css',
+  //   creator: '@thesegunadebayo'
+  // }
 })
 
 export default seoConfig

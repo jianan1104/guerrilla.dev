@@ -26,9 +26,9 @@ export default function Page() {
               Back to docs
             </Link>
           </panda.p>
-          <Box mt="16">
+          {/* <Box mt="16">
             <Image src="/panda-yoga.svg" alt="" width="300" height="500" />
-          </Box>
+          </Box> */}
         </VStack>
       </Container>
     </panda.div>
