@@ -1,0 +1,153 @@
+---
+title: Device Support
+description: Learn about the Device support for Guerrilla
+---
+
+# Device Support
+
+Guerrilla is built with modern Pyhton and uses session to add support for any Devices that can connect via SSH, Telnet and Serial.
+
+## Feature Matrix
+
+Based on the above criteria, the following devies are supported for build-in functions:
+
+
+
+<Tabs items={['MX-ROS', 'MX-NOS']}>
+<Tab>
+### Router Platform
+
+Test with EDR-G9010 and TN-4908.
+
+### Display Device Information
+
+| CLI Command | Description | Guerrilla SDK Usage  |
+|-|-|-|
+| show system | Display system information | device.show_system()  |
+| show version | Display version information | device.show_version()  |
+| show users | Display user information | device.show_users()  |
+| show auto-backup | Display auto-backup settings | device.show\_auto\_backup()  |
+| show port | Display port information | device.show_port()  |
+| show config-file | Display config file | device.show\_config\_file()  |
+| show clock | Display clock settings | device.show_clock()  |
+| show ntp-auth-keys | Display NTP authentication keys settings | device.show\_ntp\_auth_keys()  |
+| show settingcheck | Display setting check results | device.show\_setting\_check()  |
+| show arp | Display ARP table | device.show_arp()  |
+| show ip proxy-arp | Display IP proxy ARP settings | device.show\_ip\_proxy_arp()  |
+| show ip dhcp | Display IP DHCP settings | device.show\_ip\_dhcp()  |
+| show ip auto-assign | Display IP auto-assign settings | device.show\_ip\_auto_assign()  |
+| show ip dhcp-relay | Display IP DHCP relay settings | device.show\_ip\_dhcp_relay()  |
+| show ip ddns | Display IP DDNS settings | device.show\_ip\_ddns()  |
+| show ip route | Display IP route table | device.show\_ip\_route()  |
+| show ip rip | Display IP RIP settings | device.show\_ip\_rip()  |
+| show ip ospf | Display IP OSPF settings | device.show\_ip\_ospf()  |
+| show ip mroute | Display IP multicast route table | device.show\_ip\_mroute_kernel()  |
+| device.show\_ip\_mroute_static()  |
+| show ip broadcast-forward | Display IP broadcast forward settings | device.show\_ip\_broadcast_forward()  |
+| show ip directed-broadcast | Display IP directed broadcast settings | device.show\_ip\_directed_broadcast()  |
+| show ip nat | Display IP NAT settings | device.show\_ip\_nat()  |
+| show ip igmp | Display IP IGMP settings | device.show\_ip\_igmp()  |
+| show ip http-server | Display IP HTTP server settings | device.show\_ip\_http_server()  |
+| show ip telnet | Display IP Telnet settings | device.show\_ip\_telnet()  |
+| show interfaces ethernet | Display Ethernet interface information | device.show\_interfaces\_ethernet()  |
+| show interfaces counters | Display interface counters | device.show\_interfaces\_counters()  |
+| show interfaces trunk | Display interface trunk information | device.show\_interfaces\_trunk()  |
+| show interfaces trusted-access | Display trusted access interface information | device.show\_interfaces\_trusted_access()  |
+| show interfaces bridge | Display interface bridge information | device.show\_interfaces\_bridge()  |
+| show interfaces zone-base-bridge | Display zone-based bridge interface information | device.show\_interfaces\_zone\_base\_bridge()  |
+| show interfaces lan | Display LAN interface information | device.show\_interfaces\_lan()  |
+| show interfaces wan | Display WAN interface information | device.show\_interfaces\_wan()  |
+| show interfaces vlan | Display VLAN interface information | device.show\_interfaces\_vlan()  |
+| show auth mode | Display authentication mode information | device.show\_auth\_mode()  |
+| show auth radius | Display RADIUS authentication information | device.show\_auth\_radius()  |
+| show auth tacacs | Display TACACS authentication information | device.show\_auth\_tacacs()  |
+
+#### System Operation
+| CLI Command | Description | Guerrilla SDK Usage  |
+|-|-|-|
+| reload factory-default | Reloads the router device to factory default settings. | device.reload\_factory\_default()    |
+| reload factory-default no cert | Reloads the router device to factory default settings without certificate. | device.reload\_factory\_default\_no\_cert()  |
+| reload | Reloads the router device. | device.reload()  |
+| copy running-config | Exports the configuration file from the device using `tftp` method. | device.export_config('tftp', '192.168.127.3', 'default.ini')  |
+| copy running-config | Exports the configuration file from the device using `scp` method. | device.export_config('scp', '192.168.127.3', 'default.ini', 'admin', 'admin')  |
+| copy running-config | Exports the configuration file from the device using `sftp` method. | device.export_config('sftp', '192.168.127.3', 'default.ini', 'admin', 'admin')  |
+| copy running-config | Exports the configuration file from the device using `usb` method. | device.export\_config('usb', cfg\_path_name='default.ini')  |
+| copy device-firmware | Uploads firmware to the device using `tftp` method. | device.upload_firmware('tftp', '192.168.127.3', 'firmware.rom')  |
+| copy device-firmware | Uploads firmware to the device using `scp` method. | device.upload_firmware('scp', '192.168.127.3', 'firmware.rom', 'admin', 'admin')  |
+| copy device-firmware | Uploads firmware to the device using `sftp` method. | device.upload_firmware('sftp', '192.168.127.3', 'firmware.rom', 'admin', 'admin')  |
+| copy device-firmware | Uploads firmware to the device using `usb` method. | device.upload_firmware('usb', filename='firmware.rom')  |
+| copy config-file | Imports the configuration file to the device using `tftp` method. | device.import_config('tftp', '192.168.127.3', 'default.ini')  |
+| copy config-file | Imports the configuration file to the device using `scp` method. | device.import_config('scp', '192.168.127.3', 'default.ini', 'admin', 'admin')  |
+| copy config-file | Imports the configuration file to the device using `sftp` method. | device.import_config('sftp', '192.168.127.3', 'default.ini', 'admin', 'admin')  |
+| copy config-file | Imports the configuration file to the device using `usb` method. | device.import\_config('usb', cfg\_path_name='default.ini')  |
+| save | Save the current configuration and return to the main menu. | device.save()  |
+
+#### Configuration Setting
+| CLI Command | Description | Guerrilla SDK Usage  |
+|-|-|-|
+| hostname | Sets the hostname of the router. | device.config.hostname.set_hostname('EDR-G9010')  |
+| no hostname | Resets the hostname of the router to the default. | device.config.hostname.reset_hostname()  |
+| snmp-server contact | Sets the contact of the router. | device.config.snmp.set_contact('John Doe')  |
+| no snmp-server contact | Resets the contact of the router to the default. | device.config.snmp.reset_contact()  |
+| snmp-server description | Sets the description of the router. | device.config.snmp.set_description('This is a router')  |
+| no snmp-server description | Resets the description of the router to the default. | device.config.snmp.reset_description()  |
+| snmp-server location | Sets the location of the router. | device.config.snmp.set_location('New York')  |
+| no snmp-server location | Resets the location of the router to the default. | device.config.snmp.reset_location()  |
+| auto-backup config | Enables automatic backup of the configuration. | device.config.auto\_backup.enable\_config()  |
+|| Disables automatic backup of the configuration. | device.config.auto\_backup.disable\_config()  |
+|| Enables hardware interface for auto-backup. | device.config.auto_backup.enable()  |
+|| Disables hardware interface for auto-backup. | device.config.auto_backup.disable()  |
+|| Enables auto-load of configuration on bootup. | device.config.auto\_backup.enable\_auto\_load\_config()  |
+|| Disables auto-load of configuration on bootup. | device.config.auto\_backup.disable\_auto\_load\_config()  |
+| username | Adds a new user with the specified username, password, and privilege level. | device.config.user.add_user('testuser', 'testpassword', privilege=1)  |
+|| Deletes an existing user with the specified username. | device.config.user.delete_user('testuser')  |
+|| Modifies the privilege level of an existing user. | device.config.user.change\_user\_privilege('testuser', privilege=2)  |
+|| Deactivates an existing user by setting their privilege to 'no login'. | device.config.user.deactivate_user('testuser')  |
+| config-fwr-ver-check | Enables firmware check. | device.config.config\_fwr\_ver_check.enalbe()  |
+|| Disables firmware check. | device.config.config\_fwr\_ver_check.disable()  |
+| password-policy | Sets the minimum length for user passwords. | device.config.password\_policy.set\_length(8)  |
+|| Resets the password policy to the default minimum length. | device.config.password\_policy.reset\_length()  |
+|| Enables the password complexity requirements. | device.config.password\_policy.enable\_complexity()  |
+|| Disables the password complexity requirements. | device.config.password\_policy.disable\_complexity()  |
+|| Sets the password complexity requirements. | device.config.password\_policy.set\_complexity('digit')  |
+|| Resets the password complexity requirements to default or specified elements. | device.config.password\_policy.set\_complexity('alphabet')  |
+||| device.config.password\_policy.set\_complexity('special-characters')  |
+||| device.config.password\_policy.reset\_complexity('digit')  |
+|| Sets the maximum number of days a password can be used before it must be changed. | device.config.password\_policy.reset\_complexity('alphabet')  |
+||| device.config.password\_policy.reset\_complexity('special-characters')  |
+||| device.config.password\_policy.set\_max\_life\_time(90)  |
+| ip http-server | Enables the HTTP service on the router. | device.config.ip\_http\_server.enable_http()  |
+|| Disables the HTTP service on the router. | device.config.ip\_http\_server.disable_http()  |
+|| Enables the HTTPS service on the router. | device.config.ip\_http\_server.enable_https()  |
+|| Disables the HTTPS service on the router. | device.config.ip\_http\_server.disable_https()  |
+|| Resets the maximum number of login users. | device.config.ip\_http\_server.reset\_max\_login_users()  |
+|| Sets the HTTP service port. | device.config.ip\_http\_server.set\_http\_port(8080)  |
+|| Sets the HTTPS service port. | device.config.ip\_http\_server.set\_https\_port(8443)  |
+|| Sets the maximum number of login users. | device.config.ip\_http\_server.set\_max\_login_users(10)  |
+| ip telnet | Enables the telnet service on the router. | device.config.ip_telnet.enable()  |
+|| Disables the telnet service on the router. | device.config.ip_telnet.disable()  |
+|| Resets the maximum number of login users. | device.config.ip\_telnet.reset\_max\_login\_users()  |
+|| Sets the telnet service port. | device.config.ip\_telnet.set\_port(23)  |
+|| Sets the maximum number of login users. | device.config.ip\_telnet.set\_max\_login\_users(5)  |
+| ip ssh | Enables the SSH service on the router. | device.config.ip_ssh.enable()  |
+|| Sets the port number for the SSH service. | device.config.ip\_ssh.set\_port(22)  |
+|| Disables the SSH service on the router. | device.config.ip_ssh.disable()  |
+| ip ping-response | Enable the ping response for WAN interface. | device.config.ip\_ping\_response.enable()  |
+|| Disable the ping response for WAN interface. | device.config.ip\_ping\_response.disable()  |
+
+
+</Tab>
+<Tab>
+#### Display Device Informaion
+| CLI Command | Description | Guerrilla SDK Usage  |
+|-|-|-|
+| show system information| Display system information | device.show_system_informaion()  |
+| show clock | Display clock settings | device.show_clock()  |
+
+#### System Operaion
+| CLI Command | Description | Guerrilla SDK Usage  |
+|-|-|-|
+| reload factory-default | Reloads the router device to factory default settings. | device.reload\_factory\_default()    |
+| reload | Reloads the router device. | device.reload()  |
+</Tab>
+</Tabs>

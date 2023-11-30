@@ -1,0 +1,108 @@
+---
+title: Installation
+description: Tutorial for guerrilla installation.
+---
+
+<Steps>
+
+### Create virtualenv(optional)
+
+Create a python virtualenv in your working project.
+```bash
+python -m venv .venv
+```
+And then activate it.
+<Tabs items={['Debian/Unix', 'Winodws']} defaultIndex={0}>
+  <Tab>
+    ```bash
+    source .venv/bin/activate
+    ```
+  </Tab>
+   <Tab>
+    ```bash
+    .venv/bin/activate.bat
+    ```
+  </Tab>
+</Tabs>
+
+
+### Install guerrilla
+
+<Tabs items={['pip', 'pipx', 'poetry', 'pdm']} defaultIndex={0}>
+  <Tab>
+    ```bash
+    pip install guerrilla
+    ```
+  </Tab>
+   <Tab>
+    ```bash
+    pipx install guerrilla
+    ```
+  </Tab>
+   <Tab>
+    ```bash
+    poetry add guerrilla
+    ```
+  </Tab>
+   <Tab>
+    ```bash
+    pdm add guerrilla
+    ```
+  </Tab>
+</Tabs>
+
+### Import `Device` class
+
+```py
+from guerrilla import Device
+```
+
+### Configure the config
+Modify the protocol to your device what connection method you want to use. 
+
+```py {4}
+config = {
+    "name": "EDR-G9010",
+    "type": "router",
+    "protocol": "ssh",
+    "host": "192.168.127.254",
+    "username": "admin",
+    "password": "moxa",
+}
+```
+> For another session method to see [Session]()
+
+### Connect to device
+Connect to device.
+```py
+device = Device(**config)
+device.connect()
+```
+
+You'll see logging information in the console output.
+```text
+2023-11-30 15:44:54.518 | INFO     | guerrilla.connection.ssh:_establish_connection:38 - Created EDR-G9010's SSH session to 192.168.127.254:22
+2023-11-30 15:44:54.796 | SUCCESS  | guerrilla.connection.ssh:_establish_connection:51 - Connected to admin 192.168.127.254:22
+2023-11-30 15:44:58.562 | INFO     | guerrilla.connection.session:set_base_prompt:677 - Default Prompt:Firewall/VPN Router 00000
+2023-11-30 15:44:58.573 | INFO     | guerrilla.device.router.router:disable_paging:47 - Disable Paging Default
+```
+
+### Start using `guerrilla`
+Run `show version` command directly or execute by build-in functions.
+
+```py
+device.run('show version')
+```
+
+```py
+device.show_version()
+```
+
+```
+2023-11-30 15:55:39.567 | INFO     | guerrilla.utils.decorators:decorated:18 - From EDR-G9010     sent command: show version
+2023-11-30 15:55:40.044 | INFO     | guerrilla.utils.decorators:decorated:22 - From EDR-G9010 received  output: Model Name                   : EDR-G9010-VPN-2MGSFP-T
+Firmware Version             : V3.2.99 build 23110317
+```
+
+
+</Steps>
