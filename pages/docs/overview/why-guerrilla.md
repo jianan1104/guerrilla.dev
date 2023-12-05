@@ -13,7 +13,7 @@ Originally conceived as a collaborative venture by professionals from three dist
 
 The choice of the name 'Guerrilla' reflects the unique composition and ethos of the team. Members were not solely dedicated to this project; instead, they contributed on a part-time basis, infusing the project with remarkable flexibility and agility. This setup enabled them to fluidly switch between tasks and adopt development methodologies that broke free from conventional corporate norms.
 
-As time progressed, despite the ebb and flow of its team composition, Guerrilla has continued to mature and evolve. Looking ahead, there is a strong aspiration to transform Guerrilla into an in-house automation powerhouse for Moxa, potentially taking a leap into the realm of open-source. This shift aims to empower Moxa’s clientele, offering them a cutting-edge automation solution that can revolutionize their deployment processes.
+As time progressed, despite the ebb and flow of its team composition, Guerrilla has continued to mature and evolve. Looking ahead, there is a strong aspiration to transform Guerrilla into an in-house automation powerhouse, potentially taking a leap into the realm of open-source. This shift aims to empower our’s clientele, offering them a cutting-edge automation solution that can revolutionize their deployment processes.
 
 
 ## When to use Guerrilla?
