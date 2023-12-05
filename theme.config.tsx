@@ -62,7 +62,7 @@ const config: DocsThemeConfig = {
         <span>Copyright © {new Date().getFullYear()}</span>
         <a
           className={css({ color: 'current', textDecoration: 'none' })}
-          href="https://www.adebayosegun.com/"
+          href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBevk0Q0c3V8ZsH05vggJRxRJOKYc-W-lQ6KFXOOXs&s"
         >
           Proudly made by cat.
         </a>
