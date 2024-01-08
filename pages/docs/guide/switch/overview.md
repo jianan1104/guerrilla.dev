@@ -8,7 +8,7 @@ title: Connect to Switch
 from guerrilla.device import Device
 config = {
     "name": "EDR-G9010",
-    "type": "switch",
+    "type": "mxnos",
     "protocol": "ssh",
     "host": "192.168.127.253",
     "username": "admin",
