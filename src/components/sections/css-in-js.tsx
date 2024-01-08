@@ -11,7 +11,7 @@ const codeSnippets = [
     from guerrilla.device import Device
     config = {
         "name": "EDR-G9010",
-        "type": "router",
+        "type": "mxros",
         "protocol": "ssh",
         "host": "192.168.127.254",
         "username": "admin",
@@ -29,7 +29,7 @@ const codeSnippets = [
     from guerrilla.device import Device
     config = {
         "name": "EDR-G9010",
-        "type": "router",
+        "type": "mxros",
         "protocol": "telnet",
         "host": "192.168.127.254",
         "username": "admin",
@@ -47,7 +47,7 @@ const codeSnippets = [
     from guerrilla.device import Device
     config = {
         "name": "EDR-G9010",
-        "type": "router",
+        "type": "mxros",
         "protocol": "serial",
         "host": "/dev/ttyUSB0",
         "username": "admin",
