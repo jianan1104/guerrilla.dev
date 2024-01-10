@@ -8,7 +8,7 @@ title: Connect to Router
 from guerrilla.device import Device
 config = {
     "name": "EDR-G9010",
-    "type": "router",
+    "type": "mxros",
     "protocol": "ssh",
     "host": "192.168.127.254",
     "username": "admin",
