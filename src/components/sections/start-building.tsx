@@ -48,15 +48,6 @@ export const SectionStartBuilding = () => {
               >
                 Get Started
               </Link>
-              <Link
-                href="/learn"
-                className={cx(
-                  button({ color: 'black', size: 'lg' }),
-                  css({ w: { base: '100%', sm: '240px' } })
-                )}
-              >
-                Learn Panda
-              </Link>
             </Stack>
           </VStack>
         </VStack>
