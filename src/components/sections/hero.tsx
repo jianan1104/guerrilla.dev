@@ -60,15 +60,6 @@ export const SectionHero = () => {
                 >
                   Get Started
                 </Link>
-                <Link
-                  href="/learn"
-                  className={cx(
-                    button({ color: 'black', size: 'lg' }),
-                    css({ w: { base: 'full', sm: '240px' } })
-                  )}
-                >
-                  Learn Guerrilla
-                </Link>
               </Stack>
 
               <CommandPrompt value="pip install guerrilla" />

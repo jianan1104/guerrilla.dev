@@ -19,16 +19,6 @@ export default withNextra({
         destination: '/docs/overview/getting-started',
         permanent: true
       },
-      {
-        source: '/discord',
-        destination: 'https://discord.gg/VQrkpsgSx7',
-        permanent: true
-      },
-      {
-        source: '/play',
-        destination: 'https://play.panda-css.com',
-        permanent: true
-      }
     ]
   },
   reactStrictMode: true,

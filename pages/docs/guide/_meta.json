@@ -1,6 +1,4 @@
 {
   "configuration": "Configuration",
-  "mxros": "MXROS",
-  "mxnos": "MXNOS",
-  "linux": "Linux"
+  "device_type": "Device Type"
 }

@@ -41,7 +41,7 @@ export const SectionCommunity = () => {
           </Stack>
 
           <Link
-            href="https://discord.gg/VQrkpsgSx7"
+            href="https://gitlab.com/moxa/qa/product/router/guerrilla/-/tree/main"
             className={cx(
               button({ size: 'lg' }),
               css({
