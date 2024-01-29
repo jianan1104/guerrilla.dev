@@ -1,5 +1,6 @@
 {
-  "router": "Router",
-  "switch": "Switch",
+  "configuration": "Configuration",
+  "mxros": "MXROS",
+  "mxnos": "MXNOS",
   "linux": "Linux"
 }

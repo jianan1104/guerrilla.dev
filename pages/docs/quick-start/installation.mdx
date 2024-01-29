@@ -60,17 +60,17 @@ from guerrilla import Device
 ### Configure the config
 Modify the protocol to your device what connection method you want to use. 
 
-```py {4}
+```py {3-4}
 config = {
     "name": "EDR-G9010",
-    "type": "router",
+    "type": "mxros",
     "protocol": "ssh",
     "host": "192.168.127.254",
     "username": "admin",
     "password": "moxa",
 }
 ```
-> For another session method to see [Session]()
+> For more detail about the config, please refer to [Configuration](/docs/guide/configuration).
 
 ### Connect to device
 Connect to device.

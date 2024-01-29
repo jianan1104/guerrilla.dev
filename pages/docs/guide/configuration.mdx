@@ -1,0 +1,101 @@
+## Configuration File Guide for the SDK
+
+This guide explains how to configure the settings file for use in the SDK. The settings file is essential for setting up the connection and interaction with your device.
+
+### Example Configuration File
+
+Here's an example of what your configuration file might look like:
+
+<Tabs items={['SSH', 'Telnet', 'Serial']} defaultIndex={0}>
+  <Tab>
+    ```py
+    config = {
+      "name": "EDR-G9010",
+      "type": "mxros",
+      "protocol": "ssh",
+      "port": 22,
+      "host": "192.168.127.254",
+      "username": "admin",
+      "password": "moxa",
+}
+    ```
+  </Tab>
+  <Tab>
+    ```py
+    config = {
+      "name": "EDR-G9010",
+      "type": "mxros",
+      "protocol": "telnet",
+      "port": 23,
+      "host": "192.168.127.254",
+      "username": "admin",
+      "password": "moxa",
+}
+    ```
+  </Tab>
+  <Tab>
+    ```py
+    config = {
+      "name": "EDR-G9010",
+      "type": "mxros",
+      "protocol": "serial",
+      "host": "/dev/ttyUSB0",
+      "username": "admin",
+      "password": "moxa",
+}
+    ```
+  </Tab>
+</Tabs>
+
+### Parameter Descriptions
+
+| Parameter | Description |
+|-----------|-------------|
+| `name`    | The name of the device. |
+| `type`    | The type of device. Supported types are `mxros`, `mxnos`, and `linux`. If a different type is specified, the system will automatically create a `BaseDevice` class to control the device. |
+| `protocol`| The connection protocol used, such as `ssh`, `telnet`, or `serial`. |
+| `port`    |  The connection port. It varies based on the `protocol`. |
+| `host`    | The IP address or device path of the device. For `serial` type, this should be the device path like `/dev/ttyUSB0` or `COM1`. For other types, this should be the IP address, like `192.168.127.254`. |
+| `username`| The username for login. |
+| `password`| The corresponding password for user. |
+
+
+## Load Configuration from a YAML File
+
+Create a file named `config.yaml` with the following content:
+  
+```yaml showLineNumbers filename="config.yaml"
+name: EDR-G9010
+type: mxros
+protocol: ssh
+host: 192.168.127.254
+username: admin
+password: moxa
+```
+
+This YAML file contains the configuration settings for the device.
+
+### Python Code to Load YAML Configuration
+
+To read the YAML file, you will need the `PyYAML` library. Install it using pip if you haven't already:
+```bash
+pip install PyYAML
+```
+Then, use the following Python script to load the configuration from `config.yaml`:
+
+```py
+import yaml
+
+def load_config(file_path):
+    with open(file_path, 'r') as file:
+        return yaml.safe_load(file)
+
+config = load_config('config.yaml')
+print(config)
+```
+
+This script imports the `yaml` module and defines a function load_config to read a YAML file from the specified path. 
+The `yaml.safe_load` function parses the file content into a Python dictionary. Finally, the script reads `config.yaml` and prints its content.
+
+Ensure that your YAML file's path matches the one specified in the script. 
+This example assumes the YAML file is located in the same directory as your Python script.
