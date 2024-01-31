@@ -162,16 +162,12 @@ export type PartialDocsThemeConfig = z.infer<typeof publicThemeSchema>
 
 export const LOADING_LOCALES: Record<string, string> = {
   'en-US': 'Loading',
-  fr: 'Сhargement',
-  ru: 'Загрузка',
-  'zh-CN': '正在加载'
+  'zh-TW': '還在跑，等等啦'
 }
 
 export const PLACEHOLDER_LOCALES: Record<string, string> = {
   'en-US': 'Search documentation',
-  fr: 'Rechercher documents',
-  ru: 'Поиск документации',
-  'zh-CN': '搜索文档'
+  'zh-TW': '今晚我想來點'
 }
 
 export const DEEP_OBJECT_KEYS = Object.entries(DEFAULT_THEME)

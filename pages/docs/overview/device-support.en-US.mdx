@@ -1,0 +1,65 @@
+---
+title: Device Support
+description: Learn about the Device support for Guerrilla
+---
+
+
+## Device Support
+
+Guerrilla SDK supports any network device, which can only be connected through ssh, telnet and serial. All can be automated through Guerrilla SDK.
+
+But for faster development, we provide some commonly used device operations encapsulated into APIs. The support of these devices is achieved through the device plugin of Guerrilla SDK. 
+
+
+
+## Supported Devices
+
+For now, Guerrilla SDK supports the following devices:
+
+
+
+| Device Type | Description |
+| ----------- | ----------- |
+| [mxros](/docs/guide/device/mxros) | Moxa Router Operating System |
+| [mxnos](/docs/guide/device/mxnos) | Moxa Switch Operating System |
+| [linux](/docs/guide/device/linux) | Linux Operating System |
+
+
+<Callout type="info">
+  Please click the table link above for the advanced APIs supported by various devices.
+</Callout>
+
+## FQA
+
+### 1. If the device type I need is not supported, what should I do?
+
+Don't worry about that. 
+
+In the configuration, the 'type' you can fill in any fields, and the bottom layer will automatically use the most basic device type for you and provide the most basic operations (connection, disconnection and sending commands), as shown below:
+
+```py
+from guerrilla import Device
+
+config = {
+  "name": "AWK-3131A",
+  "type": "awk", # not officially supported
+  "protocol": "ssh",
+  "port": 22,
+  "host": "192.168.127.254",
+  "username": "admin",
+  "password": "moxa",
+}
+
+device = Device(config)
+device.connect()
+
+device.run('show system information')
+
+```
+
+Read this for more details about [BaseDevice](https://moxa.gitlab.io/qa/product/router/guerrilla/guerrilla/device/base.html)
+
+
+### 2. How to Create a Custom Device Type?
+
+Please refer to [Custom Device](/docs/advanced/custom_device).

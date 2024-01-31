@@ -2,6 +2,7 @@
   "overview": "Overview",
   "quick-start": "Quick Start",
   "guide": "Guide",
+  "advanced": "Advanced",
   "api_docs": {
     "title": "API Documentation",
     "href": "https://moxa.gitlab.io/qa/product/router/guerrilla/guerrilla/",

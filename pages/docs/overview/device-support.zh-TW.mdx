@@ -1,0 +1,57 @@
+---
+title: Device Support
+description: Learn about the Device support for Guerrilla
+---
+
+
+## 設備支援
+
+Guerrilla SDK支援任何網路設備，只能透過ssh、telnet和串列連接。 所有這些都可以透過 Guerrilla SDK 實現自動化。
+
+但為了更快的開發，我們提供了一些常用的裝置操作封裝成API。 這些設備的支援是透過Guerrilla SDK的設備插件實現的。
+
+## 支援的設備
+
+目前，Guerrilla SDK 支援以下設備：
+
+
+
+| 設備類型 | 描述 |
+| ----------- | ----------- |
+| [mxros](/docs/guide/device/mxros) | Moxa 路由器作業系統 |
+| [mxnos](/docs/guide/device/mxnox) | Moxa 交換器作業系統 |
+| [linux](/docs/guide/device/linux) | Linux 作業系統 |
+
+<Callout type="info">
+  請點擊上面的表單連結以了解各種裝置支援的進階API。
+</Callout>
+
+## 常見問題
+
+### 1. 如果我需要的設備類型不支持，我該怎麼辦？
+
+不用擔心這個。 配置中，「type」你可以填寫任意字段，底層會自動為你使用最基本的設備類型，並提供最基本的操作（連接、斷開和發送命令），如下方：
+
+```py
+from guerrilla import Device
+
+config = {
+  "name": "AWK-3131A",
+  "type": "awk", # not officially supported
+  "protocol": "ssh",
+  "port": 22,
+  "host": "192.168.127.254",
+  "username": "admin",
+  "password": "moxa",
+}
+
+device = Device(config)
+device.connect()
+
+device.run('show system information')
+```
+閱讀以了解更多有關 [BaseDevice] 的詳細資訊(https://moxa.gitlab.io/qa/product/router/guerrilla/guerrilla/device/base.html)
+
+### 2. 如何建立自訂設備類型？
+
+請參閱[自訂裝置](/docs/advanced/custom_device)。

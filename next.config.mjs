@@ -25,6 +25,10 @@ export default withNextra({
   swcMinify: true,
   images: {
     domains: ['images.unsplash.com']
+  },
+  i18n: {
+    locales: ['en-US', 'zh-TW'],
+    defaultLocale: 'en-US'
   }
 })
 

@@ -1,0 +1,11 @@
+{
+  "overview": "導覽",
+  "quick-start": "快速開始",
+  "guide": "指南",
+  "advanced": "進階",
+  "api_docs": {
+    "title": "API 文件",
+    "href": "https://moxa.gitlab.io/qa/product/router/guerrilla/guerrilla/",
+    "newWindow": true
+  }
+}

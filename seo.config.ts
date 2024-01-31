@@ -23,8 +23,8 @@ const seoConfig = defineMetadata({
     { rel: 'image/x-icon', url: '/favicon.ico' }
   ],
   twitter: {
-    site: '@panda__css',
-    creator: '@thesegunadebayo'
+    site: '@MoxaInc',
+    creator: '@jianan1104'
   }
 })
 

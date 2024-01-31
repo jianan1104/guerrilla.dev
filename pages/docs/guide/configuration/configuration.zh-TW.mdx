@@ -1,0 +1,62 @@
+## 方法一：透過程式碼配置
+
+本指南說明如何設定在 SDK 中使用的設定檔。 設定檔案對於設定與裝置的連接和互動至關重要。
+
+### 設定檔範例
+
+以下是設定檔的範例：
+
+<Tabs items={['SSH', 'Telnet', 'Serial']} defaultIndex={0}>
+  <Tab>
+    ```py
+    config = {
+      "name": "EDR-G9010",
+      "type": "mxros",
+      "protocol": "ssh",
+      "port": 22,
+      "host": "192.168.127.254",
+      "username": "admin",
+      "password": "moxa",
+}
+    ```
+  </Tab>
+  <Tab>
+    ```py
+    config = {
+      "name": "EDR-G9010",
+      "type": "mxros",
+      "protocol": "telnet",
+      "port": 23,
+      "host": "192.168.127.254",
+      "username": "admin",
+      "password": "moxa",
+}
+    ```
+  </Tab>
+  <Tab>
+    ```py
+    config = {
+      "name": "EDR-G9010",
+      "type": "mxros",
+      "protocol": "serial",
+      "host": "/dev/ttyUSB0",
+      "username": "admin",
+      "password": "moxa",
+}
+    ```
+  </Tab>
+</Tabs>
+
+### 參數說明
+
+| 參數 | 描述 |
+|-----------|-------------|
+| `name`    | 設備的名稱 |
+| `type`    | 設備類型。 支援的類型有`mxros`、`mxnos`和`linux`。 如果指定了不同的類型，系統將自動建立一個「BaseDevice」類別來控制裝置。 |
+| `protocol`| 使用的連線協議，例如`ssh`、`telnet`或`serial`。 |
+| `port`    | 連接埠。 它根據`protocol`而有所不同。 |
+| `host`    | 設備的 IP 位址或設備路徑。 對於`serial`類型，這應該是設備連接埠，如`/dev/ttyUSB0`或`COM1`。 對於其他類型，這應該是 IP 位址，例如`192.168.127.254`。 |
+| `username`| 用於登入的使用者名稱。 |
+| `password`| 用戶對應的密碼。 |Configuration from code
+
+

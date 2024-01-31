@@ -22,18 +22,15 @@ pip install PyYAML
 Then, use the following Python script to load the configuration from `config.yaml`:
 
 ```py
-import yaml
+from guerrilla.utils import load
 
-def load_config(file_path):
-    with open(file_path, 'r') as file:
-        return yaml.safe_load(file)
 
-config = load_config('config.yaml')
+config = load('config.yaml')
 print(config)
 ```
 
-This script imports the `yaml` module and defines a function load_config to read a YAML file from the specified path. 
-The `yaml.safe_load` function parses the file content into a Python dictionary. Finally, the script reads `config.yaml` and prints its content.
+This script imports the `load` module and defines a function load to read a YAML file from the specified path. 
+The `guerrilla.utild.load` function parses the file content into a Python dictionary. Finally, the script reads `config.yaml` and prints its content.
 
 Ensure that your YAML file's path matches the one specified in the script. 
 This example assumes the YAML file is located in the same directory as your Python script.
