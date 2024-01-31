@@ -1,0 +1,14 @@
+{
+  "index": {
+    "title": "首頁",
+    "display": "hidden",
+    "theme": {
+      "layout": "raw"
+    }
+  },
+  "docs": {
+    "title": "文件",
+    "type": "page",
+    "href": "/docs"
+  }
+}
