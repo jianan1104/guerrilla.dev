@@ -45,10 +45,10 @@ const config: DocsThemeConfig = {
   sidebar: {
     toggleButton: true
   },
-  i18n: [
-    { locale: 'en', text: 'English' },
-    { locale: 'zh-TW', text: '繁體中文' },
-  ],
+  // i18n: [
+  //   { locale: 'en', text: 'English' },
+  //   { locale: 'zh-TW', text: '繁體中文' },
+  // ],
   footer: {
     text: (
       <div

@@ -26,10 +26,10 @@ export default withNextra({
   images: {
     domains: ['images.unsplash.com']
   },
-  i18n: {
-    locales: ['en-US', 'zh-TW'],
-    defaultLocale: 'en-US'
-  }
+  // i18n: {
+  //   locales: ['en-US', 'zh-TW'],
+  //   defaultLocale: 'en-US'
+  // }
 })
 
 process.on('unhandledRejection', error => {
