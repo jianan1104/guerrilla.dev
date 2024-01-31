@@ -15,17 +15,17 @@ import { grid, square, stack } from '@/styled-system/patterns'
 import Link from 'next/link'
 
 const logoMap = {
-  nextjs: {
+  mxros: {
     name: 'Router',
     href: '/docs/guide/router/overview',
     logo: NextjsLogo
   },
-  gatsby: {
+  mxnos: {
     name: 'Switch',
     logo: GatsbyLogo,
     href: '/docs/guide/switch/overview'
   },
-  solid: {
+  linux: {
     name: 'Linux',
     logo: SolidjsLogo,
     href: '/docs/guide/linux/overview'

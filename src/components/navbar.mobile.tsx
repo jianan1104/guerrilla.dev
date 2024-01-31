@@ -79,7 +79,7 @@ export const MobileNavBar = () => {
             >
               <Stack align="flex-start">
                 <NavLink href="/docs">Docs</NavLink>
-                <NavLink href="https://github.com/chakra-ui/panda" isExternal>
+                <NavLink href="https://github.com/jianan1104/guerrilla.dev" isExternal>
                   <HStack>
                     <span>Github</span>
                     <ButtonIcon icon="ExternalLink" />

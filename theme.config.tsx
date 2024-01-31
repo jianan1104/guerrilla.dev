@@ -41,13 +41,14 @@ const config: DocsThemeConfig = {
       openGraph: { url, images: [{ url: `${url}${images}` }] }
     }
   },
-  docsRepositoryBase: 'https://github.com/chakra-ui/panda/tree/main/website',
+  docsRepositoryBase: 'https://github.com/jianan1104/guerrilla.dev/tree/master',
   sidebar: {
     toggleButton: true
   },
-  // i18n: [
-  //   { locale: 'en', text: 'English' },
-  // ],
+  i18n: [
+    { locale: 'en', text: 'English' },
+    { locale: 'zh-TW', text: '繁體中文' },
+  ],
   footer: {
     text: (
       <div
@@ -62,7 +63,7 @@ const config: DocsThemeConfig = {
         <span>Copyright © {new Date().getFullYear()}</span>
         <a
           className={css({ color: 'current', textDecoration: 'none' })}
-          href="https://www.adebayosegun.com/"
+          href="https://www.moxa.com/en/"
         >
           Proudly made by Moxa Inc.
         </a>
