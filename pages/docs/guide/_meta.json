@@ -1,5 +1,5 @@
 {
+  "usage": "Basic Usage",
   "configuration": "Configuration",
-  "session": "Session",
-  "device": "Device"
+  "design": "Design Philosophy"
 }

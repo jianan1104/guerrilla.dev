@@ -1,3 +1,6 @@
 {
-    "custom_device": "Custom Device"
+    "custom_device": "Custom Device",
+    "contribute-device": "Contribute Device",
+    "error_detector": "Error Detector",
+    "condfig_handle": "Configuration Mode Handling"
 }

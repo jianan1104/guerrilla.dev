@@ -1,13 +1,13 @@
 {
   "index": {
-    "title": "首頁",
+    "title": "Home",
     "display": "hidden",
     "theme": {
       "layout": "raw"
     }
   },
   "docs": {
-    "title": "文件",
+    "title": "Documentation",
     "type": "page",
     "href": "/docs"
   }

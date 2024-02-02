@@ -1,0 +1,98 @@
+# Tutorial: Contribute a Custom Device Class to Guerrilla SDK
+
+
+In this tutorial, we will walk through the process of creating a custom device class by extending the `BaseDevice` class. 
+This approach allows you to implement device-specific functionalities while leveraging the generic session management capabilities provided by `BaseDevice`. 
+For illustration, we'll create a custom class for a hypothetical device type called `AWK`.
+
+## Prerequisites
+
+Before starting, ensure you read the [Custom Device](/docs/advanced/custom_device) guide to understand the Guerrilla SDK's device architecture and the role of the `BaseDevice` class.
+
+<Steps>
+
+### Step 1: Add Device Constant to `DeviceType`
+
+First, add a new constant to the `DeviceType` enum to represent the new device type. This constant will be used to identify the device type when creating instances of the custom device class.
+
+```py {5} filename="src/guerrilla/utils/constant.py" showLineNumbers
+class DEVICE(Enum):
+    MXROS = "mxros"
+    MXNOS = "mxnos"
+    LINUX = "linux"
+    AWK = "awk" # Add the new device type constant here
+
+    def __eq__(self, other):
+        if isinstance(other, str):
+            return self.value == other
+        return super().__eq__(other)
+```
+
+### Step 2: Add Device Factory Method to `DeviceFactory`
+
+Next, add a new factory method to the `DeviceFactory` class to create instances of the custom device class based on the device type constant defined in the previous step.
+
+```py {21-24} filename="src/guerrilla/device/device.py" showLineNumbers
+@dataclass
+class Device:
+    config: dict
+
+    def __new__(cls, config: dict):
+        device_model: str = config.get("type", None)
+        device_model = device_model.lower()
+        match device_model:
+            case DEVICE.MXROS:
+                from .mxros import MXROS
+
+                return MXROS(config)
+            case DEVICE.MXNOS:
+                from .mxnos import MXNOS
+
+                return MXNOS(config)
+            case DEVICE.LINUX:
+                from .linux import Linux
+
+                return Linux(config)
+            case DEVICE.AWK:  # Add the new device type case here
+                from .awk import AWK # put the custom device python in src/guerrilla/device/awk/awk.py
+
+                return AWK(config)
+            case _:
+                from .base import BaseDevice
+
+                logger.warning(
+                    f"Device type {device_model} not implemented, use BaseDevice instead"
+                )
+                return BaseDevice(config)
+```
+
+### Step 3: Utilize Your Custom Device Class
+
+With the custom device class defined, you can now create instances of `AWK` and use them to manage your network devices. Here's how you can instantiate and use your custom device:
+
+
+```py
+from guerrilla import Device
+device_config = {
+    "name": "device1",
+    "type": "awk",  # Use the new device type constant here
+    "protocol": "ssh",  # Assuming your SessionFactory supports this
+    "host": "192.168.1.100",
+    "username": "admin",
+    "password": "admin123",
+}
+
+my_device = Device(device_config)
+my_device.connect()
+
+output = my_device.custom_command()
+print(output)
+my_device.disconnect()
+```
+</Steps>
+
+## Conclusion
+
+In this tutorial, we've walked through the process of creating a custom device class by extending the `BaseDevice` class. We've also seen how to utilize the custom device class to manage network devices. By following these steps, you can contribute a custom device class to Guerrilla SDK and extend its capabilities to support new device types.
+
+Don't forget to create a pull request to contribute your custom device class to the Guerrilla SDK repository. We look forward to seeing your contributions! 

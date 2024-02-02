@@ -1,0 +1,100 @@
+# Basic Usage
+
+This is a basic example of how to use the `guerrilla` library.
+
+```py
+from guerrilla import Device
+config = {
+    "name": "EDR-G9010",
+    "type": "mxros",
+    "protocol": "ssh",
+    "host": "192.168.127.254",
+    "username": "admin",
+    "password": "moxa",
+}
+
+device = Device(config)
+```
+## Method: [`connect`](https://moxa.gitlab.io/qa/product/router/guerrilla/guerrilla/connection/base.html#guerrilla.connection.base.BaseSession.connect)
+
+`connect` method is used to connect to the device. It will use username and password to login to the device.
+
+```py
+device.connect()
+```
+```anscii
+2024-02-01 21:28:31.698 | INFO     | guerrilla.connection.ssh:_establish_connection:40 - Created EDR-G9010's SSH session to 192.168.127.254:22
+2024-02-01 21:28:31.967 | SUCCESS  | guerrilla.connection.ssh:_establish_connection:53 - Connected to admin 192.168.127.254:22
+2024-02-01 21:28:35.376 | INFO     | guerrilla.device.mxros.mxros:_disable_paging:68 - Disable Paging Default
+```
+## Method: [`disconnect`](https://moxa.gitlab.io/qa/product/router/guerrilla/guerrilla/connection/base.html#guerrilla.connection.base.BaseSession.disconnect)
+
+`disconnect` method is used to disconnect from the device.
+
+```py
+device.disconnect()
+```
+```anscii
+2024-02-01 21:32:40.866 | INFO     | guerrilla.connection.ssh:disconnect:64 - Closed connection to 192.168.127.254:22
+```
+
+## Method: [`run`](https://moxa.gitlab.io/qa/product/router/guerrilla/guerrilla/connection/base.html#guerrilla.connection.base.BaseSession.run)
+
+`run` method is used to run a command on the device. It will return the `Response` object of the command.
+
+```py
+ret = device.run('show version')
+```
+```ascii
+2024-02-01 21:34:26.404 | INFO     | guerrilla.utils.decorators:decorated:19 - From EDR-G9010     sent command: show version
+2024-02-01 21:34:26.476 | INFO     | guerrilla.utils.decorators:decorated:28 - From EDR-G9010 received  output: Model Name                   : EDR-G9010-VPN-2MGSFP-T
+Firmware Version             : V3.5.99 build 24011211
+```
+
+### What's in the [`Response`](https://moxa.gitlab.io/qa/product/router/guerrilla/guerrilla/connection/response.html) object?
+
+#### `output`: The output of the command
+
+Automatically removes the command's echo and prompts, so the output will be the pure result of the command.
+
+```py
+print(ret.output)
+```
+```
+'Model Name                   : EDR-G9010-VPN-2MGSFP-T\nFirmware Version             : V3.5.99 build 24011211'
+```
+
+#### `raw_output`: The raw output of the command
+
+Raw output is the output of the command without removing the command's echo and prompts.
+
+```py
+print(ret.raw_output)
+```
+```
+'show version\nModel Name                   : EDR-G9010-VPN-2MGSFP-T\nFirmware Version             : V3.5.99 build 24011211\nEDR-G9010# '
+```
+
+#### `failed`: Whether the command failed or not
+
+Return `True` if the command failed, otherwise return `False`. More detail about the command's status can be found in the [Error Detector](/docs/advanced/error_detector).
+
+```py
+print(ret.failed)
+```
+```
+False
+```
+
+## Method: [`run_timing`](https://moxa.gitlab.io/qa/product/router/guerrilla/guerrilla/connection/base.html#guerrilla.connection.base.BaseSession.run_timing)
+
+`run_timing` method is used to execute command using a delay-based mechanism, it won't wait for prompts ready, return output after 2 secs. It will return the `Response` object of the command.
+
+```py
+device.run_timing('show version')
+```
+```ascii
+2024-02-01 22:04:56.410 | INFO     | guerrilla.utils.decorators:decorated:19 - From EDR-G9010     sent command: show version
+2024-02-01 22:04:58.612 | INFO     | guerrilla.utils.decorators:decorated:28 - From EDR-G9010 received  output: Model Name                   : EDR-G9010-VPN-2MGSFP-T
+Firmware Version             : V3.5.99 build 24011211
+```

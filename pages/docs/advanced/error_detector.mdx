@@ -1,0 +1,85 @@
+# Tutorial: Custom Error detector
+In the context of automating network device interactions, custom error detection is crucial for identifying and handling errors that occur during the execution of commands. This tutorial will explore how to implement a custom error detection mechanism within a `BaseDevice` subclass, using the `_error_detector` method as an example.
+
+## Understanding `_error_detector`
+
+The `_error_detector` method is designed to analyze command output for specific patterns that indicate an error. By customizing this method, you can tailor error detection to the peculiarities of different devices or command sets, enhancing the robustness and reliability of your automation scripts.
+
+### Key Concepts
+
+- **Error Patterns**: Regular expressions used to identify error messages in command output.
+- **Extend Error**: An optional list of additional error patterns to be considered during error detection.
+- **Predefined Patterns**: A set of common error patterns applicable to many commands or devices.
+
+## Implementing _error_detector
+
+Let's break down the implementation steps and explore how `_error_detector` functions within a custom `BaseDevice` subclass named `AWK`.
+
+<Steps>
+### Step 1: Define Error Patterns
+
+In the `AWK` class, error patterns are defined as regular expressions. Two predefined patterns are used to catch lines that start with `^` or `%`, which are common indicators of errors in many network devices:
+
+```py
+predefined_patterns: List[str] = [r"\^(.*)", r"^\s*%(.*)"]
+```
+
+### Step 2: Analyze Command Output
+
+The `_error_detector` method processes the output of a command to search for these error patterns. It combines predefined patterns with any additional patterns provided via the `extend_error` parameter:
+
+```py
+error_list: list[str] = predefined_patterns + extend_error + default_error_extend
+```
+
+It then iterates through `error_list`, searching the command output for matches:
+
+```py
+for error_pattern in error_list:
+    match: re.Match[str] | None = re.search(error_pattern, output, re.M | re.I)
+    ...
+```
+
+### Step 3: Log and Respond to Errors
+
+When a match is found, the method logs an error message. If the pattern comes from `predefined_patterns`, it captures the specific message after `^` or `%`. For other patterns, it logs the whole matched string:
+
+```py
+if match:
+    if error_pattern in predefined_patterns:
+        error_message: str = match.group(1)
+    else:
+        error_message = match.group(0)
+    self.logger.error(f"Error detected: {error_message}")
+    return True
+```
+
+### Step 4: Override the run Method to Use `_error_detector`
+
+The custom `run` method in the `AWK` class overrides the base implementation to utilize `_error_detector` for error detection. It passes `_error_detector` as the error_detector argument in the call to `super().run`:
+
+
+```py
+response = super().run(
+    command,
+    error_detector=self._error_detector,
+    ...
+)
+```
+</Steps>
+
+## Customizing Error Detection
+
+To customize error detection for your device, follow these steps:
+
+1. **Identify Common Error Indicators**: Determine how your device indicates errors in command output and define regular expressions to match these indicators.
+
+2. **Implement `_error_detector`**: In your `BaseDevice` subclass, implement the `_error_detector` method to search the command output for your defined error patterns.
+
+3. **Extend Error Patterns**: When calling the `run` method, you can pass additional error patterns specific to the command being executed via the `extend_error` parameter.
+
+4. **Test and Refine**: Test your error detection logic with a variety of commands to ensure it accurately identifies errors. Refine your error patterns as necessary based on the test results.
+
+## Conclusion
+
+Custom error detection is a powerful feature that enhances the intelligence and adaptability of your network automation scripts. By implementing and customizing the `_error_detector` method within your `BaseDevice` subclasses, you can significantly improve the error handling capabilities of your automation framework, leading to more reliable and robust network management operations.

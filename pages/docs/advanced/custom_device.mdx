@@ -1,1 +1,169 @@
-# Custom Device
+# Tutorial: Creating a Custom Device Class Based on BaseDevice
+
+
+In this tutorial, we will walk through the process of creating a custom device class by extending the `BaseDevice` class. 
+This approach allows you to implement device-specific functionalities while leveraging the generic session management capabilities provided by `BaseDevice`. 
+For illustration, we'll create a custom class for a hypothetical device type called `AWK`.
+
+## Prerequisites
+
+Before starting, ensure you have a basic understanding of Python classes, inheritance, and the concept of abstract base classes. Familiarity with network device management concepts such as SSH or Telnet sessions will also be beneficial.
+
+<Steps>
+
+### Step 1: Define the Custom Device Class
+
+Start by creating a new Python file, `awk.py`, where we'll define our custom device class. Import the necessary modules and classes:
+
+```py filename="awk.py"
+from dataclasses import dataclass
+from guerrilla.device.base import BaseDevice
+```
+
+
+### Step 2: Extend the BaseDevice Class
+
+Now, extend the `BaseDevice` class to create your custom device class. In the extension, you can override existing methods or add new methods specific to your device.
+
+```py showLineNumbers
+CONFIG_EXPECT = r"\((config.*|.*-config)\)#"
+
+@dataclass
+class AWK(BaseDevice):
+    _config_mode: bool = False
+    predefined_patterns = [r"\^(.*)", r"^\s*%(.*)"]
+    default_error_extend = []
+
+    def custom_command(self) -> Any:
+        """
+        Execute a custom command specific to AWK.
+        """
+        command = "show version"
+        print(f"Running custom command on AWK: {command}")
+        # Implement the command execution logic here
+        # For illustration, we'll just call the run method from BaseDevice
+        return self.run(command)
+
+
+    def _error_detector(
+        self, output: str, extend_error: Union[str, List[str], None] = None
+    ) -> bool:
+        if extend_error is None:
+            extend_error = []
+        elif isinstance(extend_error, str):
+            extend_error = [extend_error]
+
+        default_error_extend: List[str] = self._default_error_extend
+
+        # Predefined patterns to match lines that start with ^ or %
+        predefined_patterns: list[str] = self._predefined_patterns
+        error_list: list[str] = (
+            predefined_patterns + extend_error + default_error_extend
+        )
+
+        for error_pattern in error_list:
+            match: re.Match[str] | None = re.search(error_pattern, output, re.M | re.I)
+            if match:
+                if error_pattern in predefined_patterns:
+                    # This will capture the message after ^ or % and log it as a warning.
+                    error_message: str = match.group(1)
+                else:
+                    # For other patterns, log the whole match.
+                    error_message = match.group(0)
+                self.logger.error(f"Error detected: {error_message}")
+                return True
+
+        return False
+
+    def _handle_config_mode(self, command: str) -> Tuple[str, bool, bool]:
+            """
+            Handle configuration mode based on the command.
+
+            Args:
+                command (str): Command to execute
+
+            Returns:
+                Tuple[str, bool, bool]: Tuple containing the expect_string, reset_prompt, and config_mode flag
+            """
+            expect_string = ""
+            reset_prompt = False
+            config_mode = self._config_mode
+
+            if self.session.base_prompt == self.session.original_prompt:
+                # Disabling config mode if the base prompt is the same as the original prompt
+                config_mode = False
+
+            if "configure" in command and not config_mode:
+                # Entering configuration mode
+                expect_string = CONFIG_EXPECT
+                config_mode = True
+                reset_prompt = True
+            elif config_mode:
+                # Already in configuration mode
+                reset_prompt = True
+                if command == "exit":
+                    # Exiting configuration mode
+                    expect_string = r"#"
+                else:
+                    expect_string = CONFIG_EXPECT
+
+            return expect_string, reset_prompt, config_mode
+
+    @override
+    def run(  # type: ignore [override]
+        self,
+        command: str,
+        **kwargs,
+    ):
+        expect_string, reset_prompt, self._config_mode = self._handle_config_mode(command)
+        response = super().run(command, expect_string=expect_string, reset_prompt=reset_prompt, error_detector=self._error_detector, **kwargs)
+
+        return response
+```
+
+In this case, we've created a custom device class called `AWK` by extending the `BaseDevice` class. The `AWK` class includes a custom method called `custom_command` that executes a hypothetical command specific to the `AWK` device. We've also overridden the `run` method to handle configuration mode and error detection specific to the `AWK` device.
+
+
+Moreover, we've added a few class attributes to the `AWK` class to customize the error detector logic and configuration mode handling. These attributes are used within the overridden methods to provide device-specific functionality.   
+
+
+Please refer to [Error Detecor](/docs/advanced/error_detector) and [Configuration Mode Handling](/docs/advanced/condfig_handle) for more information on how to implement these methods.
+
+
+### Step 3: Implement Device-Specific Methods
+
+After extending the `BaseDevice` class, implement any device-specific methods that are necessary for managing your device. In the example above, we added a `custom_command` method to illustrate how you can add custom functionality to your device class.
+
+### Step 4: Utilize Your Custom Device Class
+
+With the custom device class defined, you can now create instances of `AWK` and use them to manage your network devices. Here's how you can instantiate and use your custom device:
+
+
+```py
+device_config = {
+    "name": "device1",
+    "protocol": "ssh",  # Assuming your SessionFactory supports this
+    "host": "192.168.1.100",
+    "username": "admin",
+    "password": "admin123",
+}
+
+my_device = AWK(device_config)
+my_device.connect()
+
+output = my_device.custom_command()
+print(output)
+my_device.disconnect()
+```
+</Steps>
+
+## Conclusion
+
+By extending the `BaseDevice` class, you can create customized device classes tailored to the specific requirements of different network devices. This approach promotes code reuse and simplifies the management of diverse device types within your network automation tasks. Remember, the flexibility of this design allows you to easily integrate additional functionalities as needed by overriding existing methods or adding new ones.
+
+
+<Callout type="info">
+But, if you want to contribute your custom device class to the Guerrilla library, consider creating a pull request to add it to the library. This way, other users can benefit from your work, and the library can continue to grow with new device types and functionalities.
+
+Please refer to the [Contribute Device](/docs/advanced/contribute-device) guide for more information on how to contribute a custom device class to the Guerrilla library.
+</Callout>

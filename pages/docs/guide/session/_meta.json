@@ -1,6 +1,0 @@
-{
-    "base": "Base Session",
-    "ssh": "SSH",
-    "telnet": "Telnet",
-    "serial": "Serial"
-}

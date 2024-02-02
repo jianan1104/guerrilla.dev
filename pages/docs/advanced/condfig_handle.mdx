@@ -1,0 +1,67 @@
+# Tutorial: Customizing Configuration Mode Handling 
+
+In network automation, managing device configurations is a common task that often requires entering and exiting configuration modes. This tutorial will explore how to customize the handling of configuration modes in Python-based automation scripts, specifically focusing on extending the `BaseDevice` class.
+
+## Understanding `_handle_config_mode`
+
+The `_handle_config_mode` method is a custom function designed to manage the device's configuration mode state. Its primary purpose is to adjust the command execution context based on whether the device needs to enter or exit configuration mode. This method is crucial for ensuring that configuration commands are executed correctly and that the device's state is properly managed throughout the automation process.
+
+## Key Components
+
+- **expect_string**: A pattern that the script expects to find in the command output to proceed. This is used to verify that the command execution has reached the desired state.
+- **reset_prompt**: A boolean flag indicating whether to reset the device prompt after executing a command. This is typically used when transitioning between different modes where the prompt might change.
+- **config_mode**: A boolean flag representing whether the device is currently in configuration mode. This helps the script decide if it needs to enter or exit configuration mode based on the command being executed.
+
+## Customizing `_handle_config_mode`
+
+To customize the `_handle_config_mode` for your specific device or requirements, follow these steps:
+
+<Steps>
+
+### Step 1: Determine Configuration Mode Indicators
+
+Identify how your device indicates configuration mode. This could be a special prompt or specific output text. For example, devices might use `(config)#` as a prompt to indicate configuration mode.
+
+### Step 2: Implement Configuration Mode Logic
+
+Modify the `_handle_config_mode` method to include logic specific to your device. This involves setting `expect_string` and `reset_prompt` based on the command being executed and the current mode of the device.
+
+```py
+def _handle_config_mode(self, command: str) -> Tuple[str, bool, bool]:
+    expect_string = ""
+    reset_prompt = False
+    config_mode = self._config_mode
+
+    if "configure terminal" in command and not config_mode:
+        expect_string = CONFIG_EXPECT
+        config_mode = True
+        reset_prompt = True
+    elif config_mode and command == "exit":
+        expect_string = r"#"
+        config_mode = False
+        reset_prompt = True
+
+    return expect_string, reset_prompt, config_mode
+```
+
+### Step 3: Adjust Based on Device Behavior
+
+Adapt the method to match your device's behavior. This may involve adding additional conditions or handling specific commands differently. Ensure that `expect_string` matches the prompt or output that confirms the desired mode has been reached.
+
+### Step 4: Integrate With Command Execution
+
+Ensure that the `run` method or any other command execution methods in your class use `_handle_config_mode` to adjust the execution context appropriately. This involves setting the `expect_string` and `reset_prompt` for each command based on the return value of `_handle_config_mode`.
+
+```py
+@override
+def run(self, command: str, **kwargs):
+    expect_string, reset_prompt, self._config_mode = self._handle_config_mode(command)
+    # Pass expect_string and reset_prompt to the superclass method
+    return super().run(command, expect_string=expect_string, reset_prompt=reset_prompt, **kwargs)
+
+```
+</Steps>
+
+## Conclusion
+
+Customizing the configuration mode handling allows for more flexible and accurate automation scripts that can adapt to the specific requirements of different network devices. By carefully managing the device's mode and adjusting command execution context, you can ensure that your automation tasks are executed reliably and efficiently.
