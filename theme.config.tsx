@@ -12,7 +12,7 @@ import {
 } from './src'
 import { Steps } from './src/mdx/steps'
 import { css } from './styled-system/css'
-import { Icon } from './theme/icons'
+import { Icon } from './theme/icons'     
 
 const config: DocsThemeConfig = {
   components: {
