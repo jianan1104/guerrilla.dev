@@ -80,6 +80,41 @@ To customize error detection for your device, follow these steps:
 
 4. **Test and Refine**: Test your error detection logic with a variety of commands to ensure it accurately identifies errors. Refine your error patterns as necessary based on the test results.
 
+
+## Example Code:
+
+```py
+def _error_detector(
+        self, output: str, extend_error: Union[str, List[str], None] = None
+    ) -> bool:
+        if extend_error is None:
+            extend_error = []
+        elif isinstance(extend_error, str):
+            extend_error = [extend_error]
+
+        default_error_extend: List[str] = self._default_error_extend
+
+        # Predefined patterns to match lines that start with ^ or %
+        predefined_patterns: list[str] = self._predefined_patterns
+        error_list: list[str] = (
+            predefined_patterns + extend_error + default_error_extend
+        )
+
+        for error_pattern in error_list:
+            match: re.Match[str] | None = re.search(error_pattern, output, re.M | re.I)
+            if match:
+                if error_pattern in predefined_patterns:
+                    # This will capture the message after ^ or % and log it as a warning.
+                    error_message: str = match.group(1)
+                else:
+                    # For other patterns, log the whole match.
+                    error_message = match.group(0)
+                self.logger.error(f"Error detected: {error_message}")
+                return True
+
+        return False
+```
+
 ## Conclusion
 
 Custom error detection is a powerful feature that enhances the intelligence and adaptability of your network automation scripts. By implementing and customizing the `_error_detector` method within your `BaseDevice` subclasses, you can significantly improve the error handling capabilities of your automation framework, leading to more reliable and robust network management operations.
