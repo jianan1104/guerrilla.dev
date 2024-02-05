@@ -31,8 +31,8 @@ CONFIG_EXPECT = r"\((config.*|.*-config)\)#"
 @dataclass
 class AWK(BaseDevice):
     _config_mode: bool = False
-    predefined_patterns = [r"\^(.*)", r"^\s*%(.*)"]
-    default_error_extend = []
+    _predefined_patterns = [r"\^(.*)", r"^\s*%(.*)"]
+    _default_error_extend = []
 
     def custom_command(self) -> Any:
         """
